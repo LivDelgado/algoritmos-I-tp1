@@ -83,20 +83,13 @@ void Organizador::ordernarPostosDistanciaPessoa() {
 }
 
 void Organizador::imprimirAlocacao() {
-    for (Posto posto : this->Postos) {
-        if (!posto.getPessoasAlocadas().empty()) {
-            std::cout << posto.getId() << std::endl;
-            int i = 0;
-            for (Pessoa pessoa : posto.getPessoasAlocadas()) {
-                std::cout << pessoa.getId();
-                i++;
-                if (i < (int)posto.getPessoasAlocadas().size())
-                    std::cout << " ";
-            }
-            std::cout << std::endl;
+    for (Posto & posto : this->Postos) {
+        std::cout << posto.getId() << std::endl;
+        for (Pessoa & pessoa : posto.getPessoasAlocadas()) {
+            std::cout << pessoa.getId() << " ";
         }
+        std::cout << std::endl;
     }
-    std::cout << std::endl;
 }
 
 double Organizador::calcularDistancia(Pessoa & pessoa, Posto & posto) {
