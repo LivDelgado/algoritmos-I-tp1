@@ -40,25 +40,31 @@ void Organizador::organizarFilaPrioridade() {
 void Organizador::alocarPessoasAPostos() {
     for (Pessoa & pessoa : this->Pessoas) {
         this->AtualDaFila = pessoa;
-        this->ordernarPostosDistanciaPessoa();
+        Posto* postoComMenorDistancia = this->obterPostoComMenorDistanciaPessoa(pessoa);
 
-        // itera sobre os postos para achar o primeiro com vaga
-        int i = 0;
-        for (Posto & posto : this->Postos) {
-            if (posto.temVaga()) {
-                AtualDaFila.alocarAPosto(posto.getId());
-                posto.alocarPessoa(AtualDaFila);
-                break;
-            }
-            i++;
-        }
-
-        // buscando otimizar as execuções
-        // na primeira vez que rodar após acabarem as vagas ele encerra a iteração
-        if ((i == (int)this->Postos.size() - 1) && !pessoa.alocada()) {
+        if (postoComMenorDistancia != nullptr) {
+            AtualDaFila.alocarAPosto(postoComMenorDistancia->getId());
+            postoComMenorDistancia->alocarPessoa(AtualDaFila.getId());
+        } else {
             break;
-        } 
+        }
     }
+}
+
+Posto* Organizador::obterPostoComMenorDistanciaPessoa(Pessoa pessoa) {
+    double menorDistancia = MAXFLOAT;
+    Posto* postoMaisPerto = nullptr;
+    for (Posto & posto : this->Postos) {
+        if (posto.temVaga()) {
+            double distancia = this->calcularDistancia(pessoa, posto);
+            if (distancia < menorDistancia) {
+                menorDistancia = distancia;
+                postoMaisPerto = &posto;
+            }
+        }
+    }
+
+    return postoMaisPerto;
 }
 
 void Organizador::ordenarPostosPorId() {
@@ -70,26 +76,14 @@ void Organizador::ordenarPostosPorId() {
 }
 
 
-void Organizador::ordernarPostosDistanciaPessoa() {
-    std::sort(this->Postos.begin(), this->Postos.end(),
-        [this](Posto &a, Posto &b) -> bool {
-            double distanciaPosto1 = this->calcularDistancia(this->AtualDaFila, a);
-            double distanciaPosto2 = this->calcularDistancia(this->AtualDaFila, b);
-
-            return (distanciaPosto1 < distanciaPosto2) ||
-                    (distanciaPosto1 == distanciaPosto2 && a.getId() < b.getId());
-        }
-    );
-}
-
 void Organizador::imprimirAlocacao() {
     for (Posto & posto : this->Postos) {
         std::cout << posto.getId() << std::endl;
-        int i = 0;
-        for (Pessoa & pessoa : posto.getPessoasAlocadas()) {
-            std::cout << pessoa.getId();
-            i++;
-            if (i < (int)posto.getPessoasAlocadas().size())
+        int* pessoasAlocadas = posto.getPessoasAlocadas();
+        int numeroPessoasAlocadas = posto.getNumeroPessoasAlocadas();
+        for (int i = 0; i < numeroPessoasAlocadas; i++) {
+            std::cout << pessoasAlocadas[i];
+            if (i+1 < numeroPessoasAlocadas)
                 std::cout << " ";
         }
         std::cout << std::endl;
