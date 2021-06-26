@@ -5,28 +5,32 @@ using namespace leitura;
 Leitor::Leitor() {}
 
 Leitor::~Leitor() {
-    this->pessoas = nullptr;
-    this->postos = nullptr;
+    this->Pessoas.~vector();
+    this->Postos.~vector();
 }
 
 void Leitor::instanciarObjetos() {
-    int numeroTotalPostos, numeroTotalPessoas;
-    int idade, capacidade, posicaoX, posicaoY;
+    this->instanciarPostos();
+    this->instanciarPessoas();
+}
 
+void Leitor::instanciarPostos() {
+    int numeroTotalPostos, capacidade, posicaoX, posicaoY;
     std::cin >> numeroTotalPostos;
     this->validarNumeroTotalPostos(numeroTotalPostos);
-    this->postos = new alocacao::Posto[numeroTotalPostos];
     for (int i = 0; i < numeroTotalPostos; i++) {
         std::cin >> capacidade >> posicaoX >> posicaoY;
-        postos[i] = *(new alocacao::Posto(i, capacidade, posicaoX, posicaoY));
+        this->Postos.push_back(alocacao::Posto(i, capacidade, posicaoX, posicaoY));
     }
+}
 
+void Leitor::instanciarPessoas() {
+    int numeroTotalPessoas, idade, posicaoX, posicaoY;
     std::cin >> numeroTotalPessoas;
     this->validarNumeroTotalPessoas(numeroTotalPessoas);
-    this->pessoas = new alocacao::Pessoa[numeroTotalPessoas];
     for (int i = 0; i < numeroTotalPessoas; i++) {
         std::cin >> idade >> posicaoX >> posicaoY;
-        pessoas[i] = *(new alocacao::Pessoa(i, idade, posicaoX, posicaoY));
+        this->Pessoas.push_back(alocacao::Pessoa(i, idade, posicaoX, posicaoY));
     }
 }
 
@@ -42,11 +46,11 @@ void Leitor::validarNumeroTotalPessoas(int numeroTotalPessoas) {
     }
 }
 
-alocacao::Pessoa* Leitor::getPessoas() {
-    return this->pessoas;
+std::vector<alocacao::Pessoa> Leitor::getPessoas() {
+    return this->Pessoas;
 }
 
-alocacao::Posto* Leitor::getPostos() {
-    return this->postos;
+std::vector<alocacao::Posto> Leitor::getPostos() {
+    return this->Postos;
 }
 

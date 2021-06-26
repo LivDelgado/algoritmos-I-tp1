@@ -11,6 +11,7 @@ Pessoa::Pessoa(int id, int idade, int posicaoX, int posicaoY) {
     this->Idade = idade;
     this->PosicaoX = posicaoX;
     this->PosicaoY = posicaoY;
+    this->PostoEmQueIraVacinar = -1;
 }
 
 void Pessoa::validarParametros() {
@@ -19,4 +20,33 @@ void Pessoa::validarParametros() {
         this->PosicaoY < 0 || this->PosicaoY > 100000
     )
         throw "Parâmetros da nova pessoa são inválidos.";
+}
+
+
+int Pessoa::getId() {
+    return this->Id;
+}
+
+int Pessoa::getIdade() {
+    return this->Idade;
+}
+
+int Pessoa::getPosicaoX() {
+    return this->PosicaoX;
+}
+
+int Pessoa::getPosicaoY() {
+    return this->PosicaoY;
+}
+
+int Pessoa::getPostoEmQueIraVacinar() {
+    return this->PostoEmQueIraVacinar;
+}
+
+void Pessoa::alocarAPosto(int posto) {
+    this->PostoEmQueIraVacinar = posto;
+}
+
+bool Pessoa::alocada() {
+    return this->PostoEmQueIraVacinar != -1;
 }

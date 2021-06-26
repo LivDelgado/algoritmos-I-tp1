@@ -4,7 +4,9 @@ using namespace alocacao;
 
 Posto::Posto() {}
 
-Posto::~Posto() {}
+Posto::~Posto() {
+    this->PessoasAlocadas.~vector();
+}
 
 Posto::Posto(int id, int capacidade, int posicaoX, int posicaoY) {
     this->Id = id;
@@ -21,3 +23,39 @@ void Posto::validarParametros() {
     )
         throw "Parâmetros do novo posto são inválidos.";
 }
+
+int Posto::getId() {
+    return this->Id;
+}
+
+int Posto::getCapacidade() {
+    return this->Capacidade;
+}
+
+int Posto::getPosicaoX() {
+    return this->PosicaoX;
+}
+
+int Posto::getPosicaoY() {
+    return this->PosicaoY;
+}
+
+std::vector<Pessoa> Posto::getPessoasAlocadas() {
+    return this->PessoasAlocadas;
+}
+
+bool Posto::alocarPessoa(Pessoa pessoa) {
+    if (this->atingiuCapacidadeMaxima())
+        return false;
+    this->PessoasAlocadas.push_back(pessoa);
+    return true;
+}
+
+bool Posto::atingiuCapacidadeMaxima() {
+    return ((int)this->PessoasAlocadas.size() == this->Capacidade);
+}
+
+bool Posto::temVaga() {
+    return !this->temVaga();
+}
+
