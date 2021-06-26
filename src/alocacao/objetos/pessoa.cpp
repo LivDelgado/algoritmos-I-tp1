@@ -16,7 +16,7 @@ Pessoa::Pessoa(int id, int idade, int posicaoX, int posicaoY) {
 }
 
 void Pessoa::validarParametros() {
-    if (this->Idade <= 0 || this->Idade > 10000 ||
+    if (this->Idade < 0 || this->Idade > 10000 ||
         this->PosicaoX < 0 || this->PosicaoX > 100000 ||
         this->PosicaoY < 0 || this->PosicaoY > 100000
     )
