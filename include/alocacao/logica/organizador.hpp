@@ -27,6 +27,8 @@ namespace alocacao
             double calcularDistancia(Pessoa & pessoa, Posto & posto);
             void ordernarPostosDistanciaPessoa();
 
+            Posto* obterPostoComMenorDistanciaPessoa(Pessoa pessoa);
+
         public:
             Organizador();
             ~Organizador();

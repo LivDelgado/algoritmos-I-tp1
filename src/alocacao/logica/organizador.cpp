@@ -35,6 +35,15 @@ void Organizador::organizarFilaPrioridade() {
 void Organizador::alocarPessoasAPostos() {
     for (Pessoa & pessoa : this->Pessoas) {
         this->AtualDaFila = pessoa;
+        Posto* postoComMenorDistancia = this->obterPostoComMenorDistanciaPessoa(pessoa);
+
+        if (postoComMenorDistancia != nullptr) {
+            AtualDaFila.alocarAPosto(postoComMenorDistancia->getId());
+            postoComMenorDistancia->alocarPessoa(AtualDaFila.getId());
+        } else {
+            break;
+        }
+        /*
         this->ordernarPostosDistanciaPessoa();
 
         // itera sobre os postos para achar o primeiro com vaga
@@ -53,7 +62,25 @@ void Organizador::alocarPessoasAPostos() {
         if ((i == (int)this->Postos.size() - 1) && !pessoa.alocada()) {
             break;
         } 
+
+        */
     }
+}
+
+Posto* Organizador::obterPostoComMenorDistanciaPessoa(Pessoa pessoa) {
+    double menorDistancia = MAXFLOAT;
+    Posto* postoMaisPerto = nullptr;
+    for (Posto & posto : this->Postos) {
+        if (posto.temVaga()) {
+            double distancia = this->calcularDistancia(pessoa, posto);
+            if (distancia < menorDistancia) {
+                menorDistancia = distancia;
+                postoMaisPerto = &posto;
+            }
+        }
+    }
+
+    return postoMaisPerto;
 }
 
 void Organizador::ordenarPostosPorId() {
