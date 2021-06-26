@@ -42,7 +42,7 @@ void Organizador::alocarPessoasAPostos() {
         for (Posto & posto : this->Postos) {
             if (posto.temVaga()) {
                 AtualDaFila.alocarAPosto(posto.getId());
-                posto.alocarPessoa(AtualDaFila);
+                posto.alocarPessoa(AtualDaFila.getId());
                 break;
             }
             i++;
@@ -80,11 +80,11 @@ void Organizador::ordernarPostosDistanciaPessoa() {
 void Organizador::imprimirAlocacao() {
     for (Posto & posto : this->Postos) {
         std::cout << posto.getId() << std::endl;
-        int i = 0;
-        for (Pessoa & pessoa : posto.getPessoasAlocadas()) {
-            std::cout << pessoa.getId();
-            i++;
-            if (i < (int)posto.getPessoasAlocadas().size())
+        int* pessoasAlocadas = posto.getPessoasAlocadas();
+        int numeroPessoasAlocadas = posto.getNumeroPessoasAlocadas();
+        for (int i = 0; i < numeroPessoasAlocadas; i++) {
+            std::cout << pessoasAlocadas[i];
+            if (i+1 < numeroPessoasAlocadas)
                 std::cout << " ";
         }
         std::cout << std::endl;

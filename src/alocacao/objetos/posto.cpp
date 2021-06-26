@@ -11,6 +11,8 @@ Posto::Posto(int id, int capacidade, int posicaoX, int posicaoY) {
     this->Capacidade = capacidade;
     this->PosicaoX = posicaoX;
     this->PosicaoY = posicaoY;
+    this->NumeroPessoasAlocadas = 0;
+    this->PessoasAlocadas = new int[capacidade];
     this->validarParametros();
 }
 
@@ -38,15 +40,20 @@ int Posto::getPosicaoY() {
     return this->PosicaoY;
 }
 
-std::vector<Pessoa> Posto::getPessoasAlocadas() {
+int* Posto::getPessoasAlocadas() {
     return this->PessoasAlocadas;
 }
 
-void Posto::alocarPessoa(Pessoa pessoa) {
-    this->PessoasAlocadas.push_back(pessoa);
+int Posto::getNumeroPessoasAlocadas() {
+    return this->NumeroPessoasAlocadas;
+}
+
+void Posto::alocarPessoa(int idPessoa) {
+    this->PessoasAlocadas[this->NumeroPessoasAlocadas] = idPessoa;
+    this->NumeroPessoasAlocadas++;
 }
 
 bool Posto::temVaga() {
-    return ((int)this->PessoasAlocadas.size() < this->Capacidade);
+    return this->NumeroPessoasAlocadas < this->Capacidade;
 }
 

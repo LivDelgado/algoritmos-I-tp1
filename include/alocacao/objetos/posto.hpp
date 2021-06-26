@@ -12,7 +12,8 @@ namespace alocacao {
             int Capacidade;
             int PosicaoX;
             int PosicaoY;
-            std::vector<Pessoa> PessoasAlocadas;
+            int* PessoasAlocadas;
+            int NumeroPessoasAlocadas;
 
             void validarParametros();
         public:
@@ -24,9 +25,10 @@ namespace alocacao {
             int getCapacidade();
             int getPosicaoX();
             int getPosicaoY();
-            std::vector<Pessoa> getPessoasAlocadas();
+            int* getPessoasAlocadas();
+            int getNumeroPessoasAlocadas();
 
-            void alocarPessoa(Pessoa pessoa);
+            void alocarPessoa(int idPessoa);
             bool temVaga();
     };
 }
