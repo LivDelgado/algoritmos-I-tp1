@@ -12,6 +12,7 @@ Pessoa::Pessoa(int id, int idade, int posicaoX, int posicaoY) {
     this->PosicaoX = posicaoX;
     this->PosicaoY = posicaoY;
     this->PostoEmQueIraVacinar = -1;
+    this->validarParametros();
 }
 
 void Pessoa::validarParametros() {
