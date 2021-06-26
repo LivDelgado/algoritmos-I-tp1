@@ -1,6 +1,7 @@
 #include "alocacao/logica/organizador.hpp"
 
 #include "leitura/leitor.hpp"
+#include <time.h>
 
 using namespace alocacao;
 
@@ -9,11 +10,15 @@ Organizador::Organizador() {}
 Organizador::~Organizador() {}
 
 void Organizador::iniciarVacinacao() {
+    clock_t t;
+    t = clock();
     this->lerInformacoesEntrada();
     this->organizarFilaPrioridade();
     this->alocarPessoasAPostos();
     this->ordenarPostosPorId();
     this->imprimirAlocacao();
+    t = clock() - t;
+    std::cout << "Executado em: " << ((float)t)/CLOCKS_PER_SEC << " segundos" << std::endl;
 }
 
 void Organizador::lerInformacoesEntrada() {
@@ -78,13 +83,20 @@ void Organizador::ordernarPostosDistanciaPessoa() {
 }
 
 void Organizador::imprimirAlocacao() {
-    for (Posto & posto : this->Postos) {
-        std::cout << posto.getId() << std::endl;
-        for (Pessoa & pessoa : posto.getPessoasAlocadas()) {
-            std::cout << pessoa.getId() << " ";
+    for (Posto posto : this->Postos) {
+        if (!posto.getPessoasAlocadas().empty()) {
+            std::cout << posto.getId() << std::endl;
+            int i = 0;
+            for (Pessoa pessoa : posto.getPessoasAlocadas()) {
+                std::cout << pessoa.getId();
+                i++;
+                if (i < (int)posto.getPessoasAlocadas().size())
+                    std::cout << " ";
+            }
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
     }
+    std::cout << std::endl;
 }
 
 double Organizador::calcularDistancia(Pessoa & pessoa, Posto & posto) {
