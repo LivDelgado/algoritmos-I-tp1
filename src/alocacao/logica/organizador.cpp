@@ -43,27 +43,6 @@ void Organizador::alocarPessoasAPostos() {
         } else {
             break;
         }
-        /*
-        this->ordernarPostosDistanciaPessoa();
-
-        // itera sobre os postos para achar o primeiro com vaga
-        int i = 0;
-        for (Posto & posto : this->Postos) {
-            if (posto.temVaga()) {
-                AtualDaFila.alocarAPosto(posto.getId());
-                posto.alocarPessoa(AtualDaFila.getId());
-                break;
-            }
-            i++;
-        }
-
-        // buscando otimizar as execuções
-        // na primeira vez que rodar após acabarem as vagas ele encerra a iteração
-        if ((i == (int)this->Postos.size() - 1) && !pessoa.alocada()) {
-            break;
-        } 
-
-        */
     }
 }
 
@@ -91,18 +70,6 @@ void Organizador::ordenarPostosPorId() {
     );
 }
 
-
-void Organizador::ordernarPostosDistanciaPessoa() {
-    std::sort(this->Postos.begin(), this->Postos.end(),
-        [this](Posto &a, Posto &b) -> bool {
-            double distanciaPosto1 = this->calcularDistancia(this->AtualDaFila, a);
-            double distanciaPosto2 = this->calcularDistancia(this->AtualDaFila, b);
-
-            return (distanciaPosto1 < distanciaPosto2) ||
-                    (distanciaPosto1 == distanciaPosto2 && a.getId() < b.getId());
-        }
-    );
-}
 
 void Organizador::imprimirAlocacao() {
     for (Posto & posto : this->Postos) {

@@ -25,8 +25,6 @@ namespace alocacao
             void imprimirAlocacao();
 
             double calcularDistancia(Pessoa & pessoa, Posto & posto);
-            void ordernarPostosDistanciaPessoa();
-
             Posto* obterPostoComMenorDistanciaPessoa(Pessoa pessoa);
 
         public:
