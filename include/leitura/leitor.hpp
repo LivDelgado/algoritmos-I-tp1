@@ -11,6 +11,9 @@ namespace leitura {
         private:
             alocacao::Pessoa* pessoas;
             alocacao::Posto* postos;
+
+            void validarNumeroTotalPostos(int numeroTotalPostos);
+            void validarNumeroTotalPessoas(int numeroTotalPessoas);
         public:
             Leitor();
             ~Leitor();

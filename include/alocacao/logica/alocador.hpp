@@ -4,7 +4,6 @@
 namespace alocacao {
     class Alocador {
         private:
-            char tipoComando;
         public:
             Alocador();
             ~Alocador();

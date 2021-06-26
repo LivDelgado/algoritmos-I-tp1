@@ -8,6 +8,8 @@ namespace alocacao {
             int Idade;
             int PosicaoX;
             int PosicaoY;
+
+            void validarParametros();
         public:
             Pessoa();
             Pessoa(int id, int idade, int posicaoX, int posicaoY);
