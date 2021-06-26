@@ -21,6 +21,7 @@ namespace alocacao
             void lerInformacoesEntrada();
             void organizarFilaPrioridade();
             void alocarPessoasAPostos();
+            void ordenarPostosPorId();
             void imprimirAlocacao();
 
             double calcularDistancia(Pessoa pessoa, Posto posto);

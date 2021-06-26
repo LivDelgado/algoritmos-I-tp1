@@ -6,15 +6,13 @@ using namespace alocacao;
 
 Organizador::Organizador() {}
 
-Organizador::~Organizador() {
-    this->Pessoas.~vector();
-    this->Postos.~vector();
-}
+Organizador::~Organizador() {}
 
 void Organizador::iniciarVacinacao() {
     this->lerInformacoesEntrada();
     this->organizarFilaPrioridade();
     this->alocarPessoasAPostos();
+    this->ordenarPostosPorId();
     this->imprimirAlocacao();
 }
 
@@ -35,26 +33,37 @@ void Organizador::organizarFilaPrioridade() {
 }
 
 void Organizador::alocarPessoasAPostos() {
-    for (Pessoa pessoa : this->Pessoas) {
+    for (Pessoa & pessoa : this->Pessoas) {
         this->AtualDaFila = pessoa;
         this->ordernarPostosDistanciaPessoa();
 
         // itera sobre os postos para achar o primeiro com vaga
-        Posto *postoAAlocar = nullptr;
-        for (Posto posto : this->Postos) {
+        int i = 0;
+        for (Posto & posto : this->Postos) {
             if (posto.temVaga()) {
-                postoAAlocar = &posto;
+                AtualDaFila.alocarAPosto(posto.getId());
+                posto.alocarPessoa(AtualDaFila);
                 break;
             }
+            i++;
         }
 
-        if (postoAAlocar != nullptr) {
-            // aloca pessoa a posto
-            AtualDaFila.alocarAPosto(postoAAlocar->getId());
-            postoAAlocar->alocarPessoa(AtualDaFila);
-        }
+        // buscando otimizar as execuções
+        // na primeira vez que rodar após acabarem as vagas ele encerra a iteração
+        if ((i == (int)this->Postos.size() - 1) && !pessoa.alocada()) {
+            break;
+        } 
     }
 }
+
+void Organizador::ordenarPostosPorId() {
+    std::sort(this->Postos.begin(), this->Postos.end(),
+        [](Posto &a, Posto &b) -> bool {
+            return a.getId() < b.getId();
+        }
+    );
+}
+
 
 void Organizador::ordernarPostosDistanciaPessoa() {
     std::sort(this->Postos.begin(), this->Postos.end(),
@@ -74,6 +83,7 @@ void Organizador::imprimirAlocacao() {
         for (Pessoa pessoa : posto.getPessoasAlocadas()) {
             std::cout << pessoa.getId() << " ";
         }
+        std::cout << std::endl;
     }
 }
 

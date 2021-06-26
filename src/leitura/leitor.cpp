@@ -4,10 +4,7 @@ using namespace leitura;
 
 Leitor::Leitor() {}
 
-Leitor::~Leitor() {
-    this->Pessoas.~vector();
-    this->Postos.~vector();
-}
+Leitor::~Leitor() {}
 
 void Leitor::instanciarObjetos() {
     this->instanciarPostos();

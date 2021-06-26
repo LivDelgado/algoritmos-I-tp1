@@ -4,9 +4,7 @@ using namespace alocacao;
 
 Posto::Posto() {}
 
-Posto::~Posto() {
-    this->PessoasAlocadas.~vector();
-}
+Posto::~Posto() {}
 
 Posto::Posto(int id, int capacidade, int posicaoX, int posicaoY) {
     this->Id = id;
@@ -56,6 +54,6 @@ bool Posto::atingiuCapacidadeMaxima() {
 }
 
 bool Posto::temVaga() {
-    return !this->temVaga();
+    return !this->atingiuCapacidadeMaxima();
 }
 
