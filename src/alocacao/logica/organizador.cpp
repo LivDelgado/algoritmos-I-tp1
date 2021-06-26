@@ -78,18 +78,18 @@ void Organizador::ordernarPostosDistanciaPessoa() {
 }
 
 void Organizador::imprimirAlocacao() {
-    for (Posto posto : this->Postos) {
+    for (Posto & posto : this->Postos) {
         std::cout << posto.getId() << std::endl;
-        for (Pessoa pessoa : posto.getPessoasAlocadas()) {
+        for (Pessoa & pessoa : posto.getPessoasAlocadas()) {
             std::cout << pessoa.getId() << " ";
         }
         std::cout << std::endl;
     }
 }
 
-double Organizador::calcularDistancia(Pessoa pessoa, Posto posto) {
-    unsigned int diferencaX = abs(pessoa.getPosicaoX() - posto.getPosicaoX());
-    unsigned int diferencaY = abs(pessoa.getPosicaoY() - posto.getPosicaoY());
+double Organizador::calcularDistancia(Pessoa & pessoa, Posto & posto) {
+    unsigned int diferencaX = pessoa.getPosicaoX() - posto.getPosicaoX();
+    unsigned int diferencaY = pessoa.getPosicaoY() - posto.getPosicaoY();
 
     return sqrt(pow(diferencaX, 2) + pow(diferencaY, 2));
 }

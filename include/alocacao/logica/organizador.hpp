@@ -24,7 +24,7 @@ namespace alocacao
             void ordenarPostosPorId();
             void imprimirAlocacao();
 
-            double calcularDistancia(Pessoa pessoa, Posto posto);
+            double calcularDistancia(Pessoa & pessoa, Posto & posto);
             void ordernarPostosDistanciaPessoa();
 
         public:

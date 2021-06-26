@@ -42,18 +42,11 @@ std::vector<Pessoa> Posto::getPessoasAlocadas() {
     return this->PessoasAlocadas;
 }
 
-bool Posto::alocarPessoa(Pessoa pessoa) {
-    if (this->atingiuCapacidadeMaxima())
-        return false;
+void Posto::alocarPessoa(Pessoa pessoa) {
     this->PessoasAlocadas.push_back(pessoa);
-    return true;
-}
-
-bool Posto::atingiuCapacidadeMaxima() {
-    return ((int)this->PessoasAlocadas.size() == this->Capacidade);
 }
 
 bool Posto::temVaga() {
-    return !this->atingiuCapacidadeMaxima();
+    return ((int)this->PessoasAlocadas.size() < this->Capacidade);
 }
 
