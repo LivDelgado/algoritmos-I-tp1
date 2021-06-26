@@ -12,7 +12,6 @@ void Organizador::iniciarVacinacao() {
     this->lerInformacoesEntrada();
     this->organizarFilaPrioridade();
     this->alocarPessoasAPostos();
-    this->ordenarPostosPorId();
     this->imprimirAlocacao();
 }
 
@@ -60,14 +59,6 @@ Posto* Organizador::obterPostoComMenorDistanciaPessoa(Pessoa pessoa) {
     }
 
     return postoMaisPerto;
-}
-
-void Organizador::ordenarPostosPorId() {
-    std::sort(this->Postos.begin(), this->Postos.end(),
-        [](Posto &a, Posto &b) -> bool {
-            return a.getId() < b.getId();
-        }
-    );
 }
 
 
