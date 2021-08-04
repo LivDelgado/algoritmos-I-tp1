@@ -64,17 +64,24 @@ Posto* Organizador::obterPostoComMenorDistanciaPessoa(Pessoa pessoa) {
 
 void Organizador::imprimirAlocacao() {
     for (Posto & posto : this->Postos) {
-        std::cout << posto.getId() << std::endl;
         int* pessoasAlocadas = posto.getPessoasAlocadas();
         int numeroPessoasAlocadas = posto.getNumeroPessoasAlocadas();
-        for (int i = 0; i < numeroPessoasAlocadas; i++) {
-            std::cout << pessoasAlocadas[i];
-            if (i+1 < numeroPessoasAlocadas)
-                std::cout << " ";
+
+        if (numeroPessoasAlocadas > 0) // adicionado para não deixar saídas vazias (casos 2 e 8)
+        {
+            std::cout << posto.getId() << std::endl;
+
+            for (int i = 0; i < numeroPessoasAlocadas; i++) {
+                std::cout << pessoasAlocadas[i];
+                if (i+1 < numeroPessoasAlocadas)
+                    std::cout << " ";
+            }
+
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
     }
-    std::cout << std::endl;
+
+    //std::cout << std::endl; // comentada pois gera mais um enter na saída
 }
 
 double Organizador::calcularDistancia(Pessoa & pessoa, Posto & posto) {
