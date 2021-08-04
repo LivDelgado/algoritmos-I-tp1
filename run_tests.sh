@@ -1,7 +1,7 @@
 EXEC=$1
 TMP_OUT=$2
 
-for i in {0..7..1}; do
+for i in {0..9..1}; do
   testname=$(printf "ct0%01d" $i)
   $EXEC < testes/$testname-input.txt > $TMP_OUT
   if ! diff -qwB testes/$testname-output.txt $TMP_OUT &>/dev/null; then
