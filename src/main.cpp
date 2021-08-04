@@ -1,11 +1,8 @@
-#include <cstdlib>
 #include <iostream>
 
 #include "alocacao/logica/organizador.hpp"
 
 int main() {
-    std::system("clear");
-
     try {
         alocacao::Organizador* organizador = new alocacao::Organizador();
         organizador->iniciarVacinacao();
